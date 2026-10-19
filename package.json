@@ -1,0 +1,13 @@
+{
+  "name": "bariloche-noviembre",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Compare round-trip flights and print the cheapest matches.",
+  "scripts": {
+    "search": "node search.mjs"
+  },
+  "dependencies": {
+    "playwright": "^1.64.1"
+  }
+}
