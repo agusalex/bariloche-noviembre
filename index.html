@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Buenos Aires → Bariloche · noviembre 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@87,500;87,700;100,560&family=Sora:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --lake: #0c2e38;
+      --deep: #071c24;
+      --mist: #e7f1ec;
+      --foam: #f6f3ec;
+      --sun: #e6a23c;
+      --lenga: #c4523a;
+      --water: #2f7c78;
+      --ink: #14323c;
+      --line: rgba(20, 50, 60, 0.14);
+      --pass: 920px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(1200px 500px at 80% -10%, rgba(47, 124, 120, 0.35), transparent 60%),
+        linear-gradient(180deg, var(--deep), var(--lake) 42%, #123f42 100%);
+      color: var(--mist);
+      font-family: "Sora", "Segoe UI", sans-serif;
+      font-size: 15px;
+      line-height: 1.45;
+      min-height: 100vh;
+    }
+
+    a { color: inherit; }
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--sun);
+      outline-offset: 3px;
+    }
+
+    .wrap { width: min(var(--pass), calc(100% - 32px)); margin: 0 auto; }
+
+    header.top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: baseline;
+      padding: 22px 0 8px;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(231, 241, 236, 0.72);
+    }
+
+    .pass {
+      margin: 18px auto 28px;
+      background: var(--foam);
+      color: var(--ink);
+      border-radius: 18px;
+      display: grid;
+      grid-template-columns: 1fr 210px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+    }
+
+    .pass-main { padding: 28px 28px 22px; }
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--water);
+      font-weight: 600;
+    }
+    .route {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 10px 0 4px;
+      font-family: "Anybody", "Arial Narrow", sans-serif;
+      font-weight: 700;
+      font-stretch: 87%;
+      font-size: clamp(42px, 7vw, 68px);
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+    }
+    .route span.line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, var(--ink), var(--water) 70%, var(--sun));
+      position: relative;
+    }
+    .route span.line::after {
+      content: "";
+      position: absolute;
+      right: -2px;
+      top: -4px;
+      border: 5px solid transparent;
+      border-left-color: var(--sun);
+    }
+    .when { margin: 0 0 18px; color: #3d5a63; }
+
+    .legs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .leg {
+      border-top: 1px solid var(--line);
+      padding-top: 10px;
+    }
+    .leg b {
+      display: block;
+      font-family: "Anybody", sans-serif;
+      font-stretch: 100%;
+      font-weight: 560;
+      font-size: 22px;
+      letter-spacing: -0.02em;
+    }
+    .leg small { color: #4d6670; }
+
+    .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+    .actions a, .chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding: 0 12px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      background: var(--lake);
+      color: var(--foam);
+    }
+    .actions a.ghost {
+      background: transparent;
+      color: var(--ink);
+      box-shadow: inset 0 0 0 1px rgba(20, 50, 60, 0.28);
+    }
+    .actions a:hover { background: #164654; }
+    .actions a.ghost:hover { background: rgba(20, 50, 60, 0.06); }
+
+    .stub {
+      background: var(--sun);
+      color: var(--deep);
+      padding: 22px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+    .stub::before {
+      content: "";
+      position: absolute;
+      left: -8px;
+      top: 12px;
+      bottom: 12px;
+      width: 16px;
+      background:
+        radial-gradient(circle at 8px 10px, var(--foam) 7px, transparent 8px) 0 0 / 16px 22px repeat-y;
+    }
+    .price {
+      font-family: "Anybody", sans-serif;
+      font-stretch: 87%;
+      font-weight: 700;
+      font-size: 42px;
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+    }
+    .price small { display: block; font-family: "Sora", sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+    .stub p { margin: 8px 0 0; font-size: 13px; }
+
+    section { width: min(var(--pass), calc(100% - 32px)); margin: 0 auto 28px; }
+    h2 {
+      font-family: "Anybody", sans-serif;
+      font-stretch: 87%;
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: -0.03em;
+      margin: 0 0 12px;
+    }
+    .note { color: rgba(231, 241, 236, 0.78); margin: 0 0 14px; max-width: 62ch; }
+
+    .sellers, .dates { display: grid; gap: 8px; }
+    .row {
+      display: grid;
+      grid-template-columns: 148px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      background: rgba(246, 243, 236, 0.08);
+      border: 1px solid rgba(231, 241, 236, 0.1);
+      border-radius: 12px;
+      padding: 12px 14px;
+      text-decoration: none;
+    }
+    a.row:hover { background: rgba(246, 243, 236, 0.14); }
+    .row strong { font-variant-numeric: tabular-nums; }
+    .row .who { font-weight: 600; }
+    .row .meta { color: rgba(231, 241, 236, 0.7); font-size: 13px; }
+    .tag {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--deep);
+      background: var(--sun);
+      border-radius: 999px;
+      padding: 4px 8px;
+    }
+    .tag.quiet { background: transparent; color: var(--mist); box-shadow: inset 0 0 0 1px rgba(231, 241, 236, 0.3); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(246, 243, 236, 0.06);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    th, td {
+      text-align: left;
+      padding: 12px 12px;
+      border-bottom: 1px solid rgba(231, 241, 236, 0.1);
+      vertical-align: top;
+    }
+    th {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: rgba(231, 241, 236, 0.65);
+    }
+    tr.best td { background: rgba(230, 162, 60, 0.16); }
+    td.num { font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+    .links { display: flex; flex-wrap: wrap; gap: 6px; }
+    .links a {
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(230, 162, 60, 0.7);
+      padding-bottom: 1px;
+    }
+    .links a:hover { color: var(--sun); }
+
+    footer {
+      width: min(var(--pass), calc(100% - 32px));
+      margin: 8px auto 40px;
+      color: rgba(231, 241, 236, 0.62);
+      font-size: 13px;
+    }
+
+    @media (max-width: 720px) {
+      .pass { grid-template-columns: 1fr; }
+      .stub::before { display: none; }
+      .stub { border-top: 1px dashed rgba(7, 28, 36, 0.35); }
+      .legs, .row { grid-template-columns: 1fr; }
+      table, thead, tbody, tr, th, td { display: block; }
+      thead { display: none; }
+      tr { border-bottom: 1px solid rgba(231, 241, 236, 0.12); padding: 8px 0; }
+      td { border: 0; padding: 4px 12px; }
+      td::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(231, 241, 236, 0.55);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <span>Buenos Aires → Bariloche</span>
+      <span>Precios del 19 oct 2026 · 1 adulto</span>
+    </header>
+
+    <article class="pass">
+      <div class="pass-main">
+        <p class="eyebrow">La más barata que entra en el finde</p>
+        <div class="route">BUE <span class="line"></span> BRC</div>
+        <p class="when">Martes 3 nov → viernes 13 nov · 10 noches · directo · Aeroparque</p>
+        <div class="legs">
+          <div class="leg">
+            <small>Ida · JA 3055 · A321</small>
+            <b>11:11 → 13:32</b>
+            <small>AEP → BRC</small>
+          </div>
+          <div class="leg">
+            <small>Vuelta · JA 3044 · A321</small>
+            <b>09:16 → 11:24</b>
+            <small>BRC → AEP</small>
+          </div>
+        </div>
+        <div class="actions">
+          <a href="https://www.kayak.com.ar/flights/BUE-BRC/2026-11-03/2026-11-13?sort=price_a">Kayak</a>
+          <a href="https://www.google.com/travel/flights/search?tfs=CBwQAhoqEgoyMDI2LTExLTAzag0IAhIJL20vMDFseTVtcg0IAhIJL20vMDM3NXA5GioSCjIwMjYtMTEtMTNqDQgCEgkvbS8wMzc1cDlyDQgCEgkvbS8wMWx5NW1AAUgBcAGCAQsI____________AZgBAQ&amp;hl=es-419&amp;curr=ARS">Google Flights</a>
+          <a class="ghost" href="https://www.despegar.com.ar/shop/flights/results/roundtrip/BUE/BRC/2026-11-03/2026-11-13/1/0/0/NA/NA/NA/NA/NA?from=SB&amp;di=1">Despegar</a>
+          <a class="ghost" href="https://www.turismocity.com.ar/vuelos/resultados-a-san_carlos_de_bariloche-BRC?s=BUE-BRC.03-11-2026.BRC-BUE.13-11-2026">Turismocity</a>
+          <a class="ghost" href="https://www.kiwi.com/es/search/results/aep/brc/2026-11-03/2026-11-13">Kiwi</a>
+          <a class="ghost" href="https://ar.trip.com/flights/buenos-aires-to-san-carlos-de-bariloche/tickets-bue-brc/?dcity=bue&amp;acity=brc&amp;ddate=2026-11-03&amp;rdate=2026-11-13&amp;triptype=rt&amp;class=y&amp;quantity=1">Trip.com</a>
+          <a class="ghost" href="https://jetsmart.com/ar/es/">JetSMART</a>
+        </div>
+      </div>
+      <aside class="stub">
+        <div class="price">
+          <small>desde</small>
+          $154.593
+        </div>
+        <p>JetSMART Basic en Kiwi. Despegar y la aerolínea lo publican a $173.633. Sin equipaje de cabina en el compartimento.</p>
+      </aside>
+    </article>
+  </div>
+
+  <section>
+    <h2>Dónde comprarlo</h2>
+    <p class="note">Mismos vuelos, 3 y 13 de noviembre. El de $154.593 está en Kiwi; suele ser dos pasajes separados. Para un solo ticket, Despegar y JetSMART coinciden en $173.633.</p>
+    <div class="sellers">
+      <a class="row" href="https://www.kiwi.com/es/search/results/aep/brc/2026-11-03/2026-11-13">
+        <span class="who">Kiwi.com</span>
+        <span class="meta">El más bajo. Tarifa Basic, a menudo boletos separados.</span>
+        <strong>$154.593</strong>
+      </a>
+      <a class="row" href="https://ar.trip.com/flights/buenos-aires-to-san-carlos-de-bariloche/tickets-bue-brc/?dcity=bue&amp;acity=brc&amp;ddate=2026-11-03&amp;rdate=2026-11-13&amp;triptype=rt&amp;class=y&amp;quantity=1">
+        <span class="who">Trip.com</span>
+        <span class="meta">Segundo precio en Kayak para el mismo par de vuelos.</span>
+        <strong>$160.655</strong>
+      </a>
+      <a class="row" href="https://www.despegar.com.ar/shop/flights/results/roundtrip/BUE/BRC/2026-11-03/2026-11-13/1/0/0/NA/NA/NA/NA/NA?from=SB&amp;di=1">
+        <span class="who">Despegar</span>
+        <span class="meta">Mismo número que Google Flights y que JetSMART.</span>
+        <strong>$173.633</strong>
+      </a>
+      <a class="row" href="https://jetsmart.com/ar/es/">
+        <span class="who">JetSMART</span>
+        <span class="meta">JA 3055 y JA 3044. El sitio abre el buscador; cargá AEP–BRC, 3 y 13 nov.</span>
+        <strong>$173.633</strong>
+      </a>
+      <a class="row" href="https://almundo.com.ar/flights/results/BUE-BRC/2026-11-03/BRC-BUE/2026-11-13/1/0/0/NA/NA/NA/NA?from=SB">
+        <span class="who">Almundo</span>
+        <span class="meta">Más caro en el listado de Kayak para estas fechas.</span>
+        <strong>$190.156</strong>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>Otras fechas que también sirven</h2>
+    <p class="note">Estadía de 7 a 12 noches, en Bariloche el 9, el 10 y el 11, salida a las 8:00 o después. Salir el viernes 6 o el sábado 7 sale mucho más caro por el finde largo.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Fechas</th>
+          <th>Noches</th>
+          <th>Precio</th>
+          <th>Horario que entra</th>
+          <th>Buscar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="best">
+          <td data-label="Fechas">3–13 nov</td>
+          <td data-label="Noches">10</td>
+          <td class="num" data-label="Precio">$154.593</td>
+          <td data-label="Horario">11:11 AEP → BRC · 09:16 BRC → AEP</td>
+          <td data-label="Buscar">
+            <div class="links">
+              <a href="https://www.kayak.com.ar/flights/BUE-BRC/2026-11-03/2026-11-13?sort=price_a">Kayak</a>
+              <a href="https://www.google.com/travel/flights?hl=es-419&amp;curr=ARS&amp;q=Vuelos%20de%20Buenos%20Aires%20a%20Bariloche%20el%203%20de%20noviembre%20de%202026%20regreso%20el%2013%20de%20noviembre">Google</a>
+              <a href="https://www.despegar.com.ar/shop/flights/results/roundtrip/BUE/BRC/2026-11-03/2026-11-13/1/0/0/NA/NA/NA/NA/NA?from=SB&amp;di=1">Despegar</a>
+              <a href="https://www.turismocity.com.ar/vuelos/resultados-a-san_carlos_de_bariloche-BRC?s=BUE-BRC.03-11-2026.BRC-BUE.13-11-2026">Turismocity</a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td data-label="Fechas">1–13 nov</td>
+          <td data-label="Noches">12</td>
+          <td class="num" data-label="Precio">$168.233</td>
+          <td data-label="Horario">Dom 18:00 AEP → BRC · vie 09:16 de vuelta. El de 06:40 sale $165.202 y es antes de las 8.</td>
+          <td data-label="Buscar">
+            <div class="links">
+              <a href="https://www.kayak.com.ar/flights/BUE-BRC/2026-11-01/2026-11-13?sort=price_a">Kayak</a>
+              <a href="https://www.google.com/travel/flights?hl=es-419&amp;curr=ARS&amp;q=Vuelos%20de%20Buenos%20Aires%20a%20Bariloche%20el%201%20de%20noviembre%20de%202026%20regreso%20el%2013%20de%20noviembre">Google</a>
+              <a href="https://www.despegar.com.ar/shop/flights/results/roundtrip/BUE/BRC/2026-11-01/2026-11-13/1/0/0/NA/NA/NA/NA/NA?from=SB&amp;di=1">Despegar</a>
+              <a href="https://www.turismocity.com.ar/vuelos/resultados-a-san_carlos_de_bariloche-BRC?s=BUE-BRC.01-11-2026.BRC-BUE.13-11-2026">Turismocity</a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td data-label="Fechas">4–13 nov</td>
+          <td data-label="Noches">9</td>
+          <td class="num" data-label="Precio">$171.265</td>
+          <td data-label="Horario">Mié 19:55 AEP → BRC · vie 09:16 de vuelta</td>
+          <td data-label="Buscar">
+            <div class="links">
+              <a href="https://www.kayak.com.ar/flights/BUE-BRC/2026-11-04/2026-11-13?sort=price_a">Kayak</a>
+              <a href="https://www.google.com/travel/flights?hl=es-419&amp;curr=ARS&amp;q=Vuelos%20de%20Buenos%20Aires%20a%20Bariloche%20el%204%20de%20noviembre%20de%202026%20regreso%20el%2013%20de%20noviembre">Google</a>
+              <a href="https://www.despegar.com.ar/shop/flights/results/roundtrip/BUE/BRC/2026-11-04/2026-11-13/1/0/0/NA/NA/NA/NA/NA?from=SB&amp;di=1">Despegar</a>
+              <a href="https://www.turismocity.com.ar/vuelos/resultados-a-san_carlos_de_bariloche-BRC?s=BUE-BRC.04-11-2026.BRC-BUE.13-11-2026">Turismocity</a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td data-label="Fechas">3 nov, después de las 17</td>
+          <td data-label="Noches">10</td>
+          <td class="num" data-label="Precio">$171.265</td>
+          <td data-label="Horario">17:45 o 19:15 AEP → BRC · misma vuelta de las 09:16</td>
+          <td data-label="Buscar">
+            <div class="links">
+              <a href="https://www.kayak.com.ar/flights/BUE-BRC/2026-11-03/2026-11-13?sort=price_a">Kayak</a>
+              <a href="https://www.google.com/travel/flights?hl=es-419&amp;curr=ARS&amp;q=Vuelos%20de%20Buenos%20Aires%20a%20Bariloche%20el%203%20de%20noviembre%20de%202026%20regreso%20el%2013%20de%20noviembre">Google</a>
+              <a href="https://www.despegar.com.ar/shop/flights/results/roundtrip/BUE/BRC/2026-11-03/2026-11-13/1/0/0/NA/NA/NA/NA/NA?from=SB&amp;di=1">Despegar</a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td data-label="Fechas">9–18 nov</td>
+          <td data-label="Noches">9</td>
+          <td class="num" data-label="Precio">$173.633</td>
+          <td data-label="Horario">Lun 19:35 AEP → BRC · mié 21:32 BRC → EZE. Llegás tarde el 9.</td>
+          <td data-label="Buscar">
+            <div class="links">
+              <a href="https://www.kayak.com.ar/flights/BUE-BRC/2026-11-09/2026-11-18?sort=price_a">Kayak</a>
+              <a href="https://www.google.com/travel/flights?hl=es-419&amp;curr=ARS&amp;q=Vuelos%20de%20Buenos%20Aires%20a%20Bariloche%20el%209%20de%20noviembre%20de%202026%20regreso%20el%2018%20de%20noviembre">Google</a>
+              <a href="https://www.despegar.com.ar/shop/flights/results/roundtrip/BUE/BRC/2026-11-09/2026-11-18/1/0/0/NA/NA/NA/NA/NA?from=SB&amp;di=1">Despegar</a>
+              <a href="https://www.turismocity.com.ar/vuelos/resultados-a-san_carlos_de_bariloche-BRC?s=BUE-BRC.09-11-2026.BRC-BUE.18-11-2026">Turismocity</a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td data-label="Fechas">Aerolíneas, 3–13 nov</td>
+          <td data-label="Noches">10</td>
+          <td class="num" data-label="Precio">~$220.000</td>
+          <td data-label="Horario">Ida 09:45 AEP. Pasaje de aerolínea; igual revisá el equipaje.</td>
+          <td data-label="Buscar">
+            <div class="links">
+              <a href="https://www.google.com/travel/flights?hl=es-419&amp;curr=ARS&amp;q=Vuelos%20de%20Aerolineas%20Argentinas%20de%20Buenos%20Aires%20a%20Bariloche%20el%203%20de%20noviembre%20de%202026%20regreso%20el%2013%20de%20noviembre">Google</a>
+              <a href="https://www.aerolineas.com.ar/">Aerolíneas</a>
+              <a href="https://www.kayak.com.ar/flights/BUE-BRC/2026-11-03/2026-11-13?sort=price_a">Kayak</a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <footer>
+    <p>Kayak avisó que este precio puede subir unos $106.000 en los próximos 15 días. Despegar bloqueó el navegador automático; el monto de Despegar es el que publicó Kayak. Turismocity estaba caído al buscar. Los precios no incluyen equipaje.</p>
+  </footer>
+</body>
+</html>
