@@ -5,7 +5,8 @@
   "type": "module",
   "description": "Compare round-trip flights and print the cheapest matches.",
   "scripts": {
-    "search": "node search.mjs"
+    "search": "node search.mjs",
+    "cars": "node cars.mjs"
   },
   "dependencies": {
     "playwright": "^1.64.1"
