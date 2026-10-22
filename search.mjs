@@ -25,6 +25,7 @@ A bare max hour includes that whole hour (17 means through 17:59).
   --min-return-hour, --max-return-hour
   --top N                   How many results to print. Default 10.
   --max-pairs N             Safety cap on date pairs. Default 80.
+  --one-per-pair            Keep only the cheapest match of each date pair.
   --headed                  Show the browser.
   --json                    Print JSON instead of a table.
 `;
@@ -45,6 +46,7 @@ const { values } = parseArgs({
     "max-return-date": { type: "string" },
     top: { type: "string", default: "10" },
     "max-pairs": { type: "string", default: "80" },
+    "one-per-pair": { type: "boolean", default: false },
     headed: { type: "boolean", default: false },
     json: { type: "boolean", default: false },
     help: { type: "boolean", short: "h", default: false },
@@ -330,7 +332,7 @@ try {
     const pair = pairs[index];
     console.error(`[${index + 1}/${pairs.length}] ${pair.depart} → ${pair.ret}`);
     const offers = await readPair(page, pair);
-    found.push(...offers);
+    found.push(...(values["one-per-pair"] ? offers.slice(0, 1) : offers));
     if (index < pairs.length - 1) await page.waitForTimeout(800);
   }
 } finally {
